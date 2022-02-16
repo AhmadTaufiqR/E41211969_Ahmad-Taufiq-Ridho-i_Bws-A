@@ -5,4 +5,9 @@
 .jumbotron img
 {
 padding: 7rem 2rem;
+background-color: #fff;
+width: auto;
+justify-content: center;
+height: fit-content;
 }
+
