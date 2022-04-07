@@ -42,8 +42,6 @@ public class MenuUtama extends javax.swing.JFrame {
         load_table();
         Banyak();
         trs();
-        tampilTable();
-        banyakKR();
     }
 public void datanow (){
         Date dt = new Date();
@@ -88,17 +86,7 @@ private void Banyak(){
         }
 }
 
-private void banyakKR(){
-    try {
-            String sql = "SELECT COUNT(Id_barang) AS total FROM keranjang";
-            java.sql.Connection conn = (Connection) Koneksi.getkoneksi();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet res = stm.executeQuery(sql);
-            res.next();
-            totalbrg1.setText(res.getString("total"));
-        } catch (Exception e) {
-        }
-}
+
 
 public void trs() {
         try {
@@ -130,28 +118,7 @@ private void hapus(){
     harga.setText("");
 }
 
-private void tampilTable() {
-     DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Id barang");
-        model.addColumn("Nama barang");
-        model.addColumn("Jumlah");
-        model.addColumn("Harga");
-        model.addColumn("Stok");
-        //menampilkan database dalam tabel
-        try {
-            int no=1;
-            String sql = "SELECT barang.Id_barang, barang.nama_barang, keranjang.jumlah, keranjang.harga, inventori.stok FROM keranjang JOIN barang ON barang.Id_barang = keranjang.Id_barang JOIN inventori ON barang.Id_barang = inventori.Id_barang;";
-            java.sql.Connection conn = (Connection) Koneksi.getkoneksi();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet res = stm.executeQuery(sql);
-            while (res.next()){
-                model.addRow(new Object[]{res.getString("Id_barang"),
-                res.getString("nama_barang"),res.getString("jumlah"),res.getString("harga"),res.getString("stok")});
-            }
-            TblKeranjang.setModel(model);
-        } catch (Exception e) {
-        }
-}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -163,8 +130,6 @@ private void tampilTable() {
     private void initComponents() {
 
         Kasir = new javax.swing.JPanel();
-        TransaksiPenjualan = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         Cari = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -188,35 +153,28 @@ private void tampilTable() {
         jLabel13 = new javax.swing.JLabel();
         IDtransaksi = new javax.swing.JTextField();
         keranjang = new javax.swing.JButton();
+        TransaksiPenjualan = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
 
         Kasir.setLayout(new java.awt.CardLayout());
-
-        TransaksiPenjualan.setBackground(new java.awt.Color(0, 9, 87));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("TRANSAKSI PENJUALAN");
-
-        javax.swing.GroupLayout TransaksiPenjualanLayout = new javax.swing.GroupLayout(TransaksiPenjualan);
-        TransaksiPenjualan.setLayout(TransaksiPenjualanLayout);
-        TransaksiPenjualanLayout.setHorizontalGroup(
-            TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(1078, Short.MAX_VALUE))
-        );
-        TransaksiPenjualanLayout.setVerticalGroup(
-            TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(689, Short.MAX_VALUE))
-        );
-
-        Kasir.add(TransaksiPenjualan, "card3");
 
         Cari.setBackground(new java.awt.Color(0, 9, 87));
 
@@ -229,13 +187,13 @@ private void tampilTable() {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addContainerGap()
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4)
+            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -478,6 +436,156 @@ private void tampilTable() {
 
         Kasir.add(Cari, "card3");
 
+        TransaksiPenjualan.setBackground(new java.awt.Color(0, 9, 87));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("TRANSAKSI PENJUALAN");
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+
+        jTextField1.setText("jTextField1");
+
+        jTextField2.setText("jTextField2");
+
+        jLabel9.setText("CARI");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        jLabel10.setText("jLabel10");
+
+        jLabel11.setText("jLabel11");
+
+        jTextField3.setText("jTextField3");
+
+        jTextField4.setText("jTextField3");
+
+        jLabel12.setText("jLabel11");
+
+        jTextField5.setText("jTextField3");
+
+        jLabel14.setText("jLabel11");
+
+        jTextField6.setText("jTextField3");
+
+        jButton1.setText("jButton1");
+
+        javax.swing.GroupLayout TransaksiPenjualanLayout = new javax.swing.GroupLayout(TransaksiPenjualan);
+        TransaksiPenjualan.setLayout(TransaksiPenjualanLayout);
+        TransaksiPenjualanLayout.setHorizontalGroup(
+            TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TransaksiPenjualanLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
+            .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
+                    .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45))))
+            .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
+                .addGroup(TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, TransaksiPenjualanLayout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, TransaksiPenjualanLayout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(31, 31, 31)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(98, 98, 98)
+                        .addGroup(TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(416, Short.MAX_VALUE))
+        );
+        TransaksiPenjualanLayout.setVerticalGroup(
+            TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
+                .addGroup(TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TransaksiPenjualanLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
+                        .addGroup(TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(35, 35, 35)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addGroup(TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(TransaksiPenjualanLayout.createSequentialGroup()
+                        .addGroup(TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addGap(18, 18, 18)
+                        .addGroup(TransaksiPenjualanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))))
+                .addGap(84, 84, 84)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(85, Short.MAX_VALUE))
+        );
+
+        Kasir.add(TransaksiPenjualan, "card3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -499,7 +607,7 @@ private void tampilTable() {
         Kasir.repaint();
         Kasir.revalidate();
         
-        Kasir.add(Keranjang);
+        Kasir.add(TransaksiPenjualan);
         Kasir.repaint();
         Kasir.revalidate();
     }//GEN-LAST:event_keranjangActionPerformed
@@ -575,17 +683,7 @@ private void tampilTable() {
 
     private void tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahActionPerformed
         // TODO add your handling code here:
-        try {
-            String sql = "INSERT INTO keranjang Values ('"+IDtransaksi.getText()+"', '"+Id_barang+"', '"+jumlah.getText()+"', '"+harga.getText()+"')";
-            java.sql.Connection cnn = (Connection) Koneksi.getkoneksi();
-            java.sql.Statement st = cnn.createStatement();
-            st.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null, "Berhasil");
-            hapus();
-            load_table();
-            tampilTable();
-        } catch (Exception e) {
-        }
+      
     }//GEN-LAST:event_tambahActionPerformed
 
     private void batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_batalActionPerformed
@@ -637,8 +735,13 @@ private void tampilTable() {
     private javax.swing.JTextField cari;
     private javax.swing.JTable daftarbrg;
     private javax.swing.JTextField harga;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -646,10 +749,20 @@ private void tampilTable() {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jumlah;
     private javax.swing.JButton keranjang;
     private javax.swing.JTextField namaprd;
