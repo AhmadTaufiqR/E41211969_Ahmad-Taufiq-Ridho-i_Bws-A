@@ -493,6 +493,7 @@ private void hapus(){
 
         jTextField6.setText("jTextField3");
 
+        jButton1.setBackground(new java.awt.Color(255, 232, 22));
         jButton1.setText("jButton1");
 
         jButton2.setText("jButton1");
